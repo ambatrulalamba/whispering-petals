@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Whispering Petals",
   description: "Botanical watercolor gallery",
+icons: {
+    icon: 'icon.png', //  иконка
+  },
 };
 
 export default function RootLayout({
