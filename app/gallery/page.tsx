@@ -4,8 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link'; // Это важно добавить!
 
 export default async function GalleryPage() {
-  const artworks = await client.fetch(`*[_type == "artwork"]`);
-
+const artworks = await client.fetch(`*[_type == "artwork"]`, {}, { cache: 'no-store' });
   return (
     <main className="p-8 md:p-16 w-full">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
