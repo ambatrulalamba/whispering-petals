@@ -11,13 +11,29 @@ export default function ArtworkList({ artworks }: { artworks: any[] }) {
             {item.images && item.images[0] && (
               <Image 
                 src={urlFor(item.images[0]).url()} 
-                alt={item.title} 
+                alt={item.title || 'Artwork'} 
                 fill 
                 className="object-cover transition-transform duration-500 group-hover:scale-105" 
               />
             )}
+            
+            {/* Плашка SOLD поверх картинки, если картина продана */}
+            {item.isSold && (
+              <div className="absolute top-4 right-4 bg-stone-900/90 text-white text-xs tracking-widest uppercase font-medium px-3 py-1 rounded shadow-md backdrop-blur-sm">
+                SOLD
+              </div>
+            )}
           </div>
-          <h2 className="mt-4 font-serif text-xl">{item.title}</h2>
+          
+          <div className="mt-4 flex justify-between items-baseline">
+            <h2 className="font-serif text-xl">{item.title}</h2>
+            {/* Если хотите выводить статус или цену справа от названия */}
+            {item.isSold && (
+              <span className="text-xs tracking-wider uppercase text-stone-500 font-medium">
+                Sold
+              </span>
+            )}
+          </div>
         </Link>
       ))}
     </div>
