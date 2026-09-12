@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer'; // Импортируем футер
 import "./globals.css";
 
 const inter = Inter({
@@ -11,8 +12,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Whispering Petals",
   description: "Botanical watercolor gallery",
-icons: {
-    icon: 'icon.png', //  иконка
+  icons: {
+    icon: 'icon.png', // иконка
   },
 };
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-grow">{children}</main>
+        <Footer /> {/* Выводим футер в самом низу */}
       </body>
     </html>
   );
