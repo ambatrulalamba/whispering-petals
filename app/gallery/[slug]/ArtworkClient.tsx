@@ -75,7 +75,7 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
           {/* Статус Sold или Цена */}
           <div className="col-span-2 flex justify-center mt-2">
             {artwork.isSold ? (
-              <span className="inline-block px-4 py-1.5 bg-stone-900 text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
+              <span className="inline-block px-4 py-1.5 bg-[#4a2e35] text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
                 SOLD
               </span>
             ) : (
