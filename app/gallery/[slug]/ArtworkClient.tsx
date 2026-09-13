@@ -19,34 +19,34 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
       </h1>
 
       {/* Блок картины: убрали aspect-ratio, используем flex для адаптивности */}
- {/* Контейнер картины с ограничением высоты */}
-<div className="relative group w-full flex justify-center">
-  <div className="relative w-full h-auto max-h-[70vh] flex justify-center">
-    <Image 
-      src={urlFor(artwork.images[index]).url()} 
-      alt={artwork.title} 
-      width={1200}
-      height={800}
-      // Добавили max-h-[70vh] и object-contain
-      className="w-auto h-full max-h-[70vh] object-contain" 
-      priority
-    />
-  </div>
-  
-  {/* Стрелки остаются на месте */}
-  <button 
-    onClick={prevSlide} 
-    className="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
-  >
-    ❮
-  </button>
-  <button 
-    onClick={nextSlide} 
-    className="absolute right-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
-  >
-    ❯
-  </button>
-</div>
+      {/* Контейнер картины с ограничением высоты */}
+      <div className="relative group w-full flex justify-center">
+        <div className="relative w-full h-auto max-h-[70vh] flex justify-center">
+          <Image 
+            src={urlFor(artwork.images[index]).url()} 
+            alt={artwork.title} 
+            width={1200}
+            height={800}
+            // Добавили max-h-[70vh] и object-contain
+            className="w-auto h-full max-h-[70vh] object-contain" 
+            priority
+          />
+        </div>
+        
+        {/* Стрелки остаются на месте */}
+        <button 
+          onClick={prevSlide} 
+          className="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
+        >
+          ❮
+        </button>
+        <button 
+          onClick={nextSlide} 
+          className="absolute right-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
+        >
+          ❯
+        </button>
+      </div>
         
 
 
@@ -67,11 +67,21 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
       <div className="mt-12 text-center max-w-2xl mx-auto space-y-4">
         <p className="text-sm uppercase tracking-widest text-gray-500">{artwork.series}</p>
         <p className="text-gray-700 italic">{artwork.description}</p>
-        <div className="grid grid-cols-2 gap-4 text-sm uppercase tracking-widest mt-6 border-t pt-6">
+        <div className="grid grid-cols-2 gap-4 text-sm uppercase tracking-widest mt-6 border-t pt-6 items-center">
           <p><span className="text-gray-400">Year:</span> {artwork.year}</p>
           <p><span className="text-gray-400">Size:</span> {artwork.size}</p>
-          <p><span className="text-gray-400">Materials:</span> {artwork.materials}</p>
-          <p className="font-bold">{artwork.price}</p>
+          <p className="col-span-2"><span className="text-gray-400">Materials:</span> {artwork.materials}</p>
+          
+          {/* Статус Sold или Цена */}
+          <div className="col-span-2 flex justify-center mt-2">
+            {artwork.isSold ? (
+              <span className="inline-block px-4 py-1.5 bg-stone-900 text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
+                SOLD
+              </span>
+            ) : (
+              <p className="font-bold">{artwork.price}</p>
+            )}
+          </div>
         </div>
       </div>
 
