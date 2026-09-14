@@ -11,6 +11,11 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
   const nextSlide = () => setIndex((prev) => (prev === artwork.images.length - 1 ? 0 : prev + 1));
   const prevSlide = () => setIndex((prev) => (prev === 0 ? artwork.images.length - 1 : prev - 1));
 
+  // Безопасное форматирование массива категорий
+  const categoriesString = Array.isArray(artwork.category) 
+    ? artwork.category.join(', ') 
+    : (artwork.category || 'Original Painting');
+
   return (
     <main className="max-w-4xl mx-auto p-8">
       
@@ -18,8 +23,7 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
         {artwork.title}
       </h1>
 
-      {/* Блок картины: убрали aspect-ratio, используем flex для адаптивности */}
-      {/* Контейнер картины с ограничением высоты */}
+      {/* Контейнер картины */}
       <div className="relative group w-full flex justify-center">
         <div className="relative w-full h-auto max-h-[70vh] flex justify-center">
           <Image 
@@ -27,13 +31,11 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
             alt={artwork.title} 
             width={1200}
             height={800}
-            // Добавили max-h-[70vh] и object-contain
             className="w-auto h-full max-h-[70vh] object-contain" 
             priority
           />
         </div>
         
-        {/* Стрелки остаются на месте */}
         <button 
           onClick={prevSlide} 
           className="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
@@ -47,8 +49,6 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
           ❯
         </button>
       </div>
-        
-
 
       {/* Превью */}
       <div className="flex gap-4 mt-8 justify-center flex-wrap">
@@ -63,26 +63,72 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
         ))}
       </div>
 
-      {/* Описание и кнопки */}
+      {/* Описание */}
       <div className="mt-12 text-center max-w-2xl mx-auto space-y-4">
-        <p className="text-sm uppercase tracking-widest text-gray-500">{artwork.series}</p>
-        <p className="text-gray-700 italic">{artwork.description}</p>
-        <div className="grid grid-cols-2 gap-4 text-sm uppercase tracking-widest mt-6 border-t pt-6 items-center">
-          <p><span className="text-gray-400">Year:</span> {artwork.year}</p>
-          <p><span className="text-gray-400">Size:</span> {artwork.size}</p>
-          <p className="col-span-2"><span className="text-gray-400">Materials:</span> {artwork.materials}</p>
-          
-          {/* Статус Sold или Цена */}
-          <div className="col-span-2 flex justify-center mt-2">
-            {artwork.isSold ? (
-              <span className="inline-block px-4 py-1.5 bg-[#4a2e35] text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
-                SOLD
-              </span>
-            ) : (
-              <p className="font-bold">{artwork.price}</p>
-            )}
+        {artwork.series && <p className="text-sm uppercase tracking-widest text-gray-500">{artwork.series}</p>}
+        {artwork.description && <p className="text-gray-700 italic">{artwork.description}</p>}
+      </div>
+
+      {/* Блок характеристик и кнопки */}
+      <div className="mt-8 max-w-xl mx-auto border-t pt-8 space-y-6">
+        
+        {/* Статус For Sale / Sold */}
+        <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-medium text-gray-600">
+          <span className={`w-2 h-2 rounded-full ${artwork.isSold ? 'bg-[#4a2e35]' : 'bg-emerald-600'}`}></span>
+          <span>{artwork.isSold ? 'SOLD' : 'FOR SALE'}</span>
+        </div>
+
+        {/* Сетка параметров */}
+        <div className="grid grid-cols-2 gap-y-6 gap-x-4 text-xs uppercase tracking-widest">
+          <div>
+            <p className="text-gray-400 mb-1">Materials / Medium</p>
+            <p className="text-gray-800 font-medium">{artwork.materials}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 mb-1">Year</p>
+            <p className="text-gray-800 font-medium">{artwork.year}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 mb-1">Dimensions / Size</p>
+            <p className="text-gray-800 font-medium">{artwork.size}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 mb-1">Framing</p>
+            <p className="text-gray-800 font-medium">{artwork.framing || 'Unframed'}</p>
+          </div>
+          <div>
+            <p className="text-gray-400 mb-1">Category</p>
+            <p className="text-gray-800 font-medium">{categoriesString}</p>
           </div>
         </div>
+
+        {/* Уникальность */}
+        <div className="pt-4 border-t text-xs uppercase tracking-widest text-gray-500 text-center">
+          ☆ One of a Kind · Only 1 Available
+        </div>
+
+        {/* Цена или статус и кнопка связи */}
+        <div className="pt-4 border-t flex flex-col items-center space-y-4">
+          {artwork.isSold ? (
+            <span className="inline-block px-4 py-1.5 bg-[#4a2e35] text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
+              SOLD
+            </span>
+          ) : (
+            <>
+              <div className="text-center">
+                <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Price</p>
+                <p className="text-2xl font-serif text-gray-800">{artwork.price}</p>
+              </div>
+              <Link
+                href="/contact"
+                className="w-full max-w-md text-center py-3.5 px-6 border border-gray-800 text-gray-800 uppercase tracking-widest text-xs font-medium rounded-full hover:bg-gray-900 hover:text-white transition-all duration-200 shadow-sm"
+              >
+                Contact to Enquire
+              </Link>
+            </>
+          )}
+        </div>
+
       </div>
 
       <div className="mt-16 text-center border-t pt-8">
