@@ -5,6 +5,11 @@ export default function HomePage() {
   return (
     <main className="flex flex-col items-center justify-center min-h-[70vh] px-6 pt-4 pb-12">
       
+      {/* Исходный заголовок под меню: нужный цвет, размер и центрирование с переносом на мобильных */}
+      <h1 className="text-3xl md:text-5xl tracking-[0.2em] mb-6 text-[#380645] font-light text-center">
+        WHISPERING PETALS
+      </h1>
+
       {/* Картинка home.jpg */}
       <div className="relative w-full max-w-2xl aspect-[4/3] mb-12 shadow-xl rounded-lg overflow-hidden">
         <Image
