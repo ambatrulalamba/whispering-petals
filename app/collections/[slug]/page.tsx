@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { client } from '@/lib/sanity';
 import ArtworkList from '@/components/ArtworkList'; // Предполагаем, что у тебя есть компонент списка картин
 

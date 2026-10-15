@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { client } from '@/lib/sanity';
 import { urlFor } from '@/lib/image';
 import Image from 'next/image';
