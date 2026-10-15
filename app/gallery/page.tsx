@@ -1,11 +1,10 @@
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+
 import { client } from '@/lib/sanity';
 import { urlFor } from '@/lib/image';
 import Image from 'next/image';
 import Link from 'next/link';
-
-export const dynamic = 'force-dynamic';
 
 export default async function GalleryPage() {
   const artworks = await client.fetch(`*[_type == "artwork"]`);
