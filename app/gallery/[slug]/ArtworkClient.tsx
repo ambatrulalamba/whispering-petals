@@ -17,34 +17,34 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
     : (artwork.category || 'Original Painting');
 
   return (
-    <main className="max-w-4xl mx-auto p-8">
+    <main className="max-w-4xl mx-auto px-6 py-16 md:px-12 md:py-24 bg-[#FAFAF8] min-h-screen">
       
       <h1 className="text-3xl md:text-4xl font-sans font-normal uppercase tracking-widest text-gray-800 text-center mb-12">
         {artwork.title}
       </h1>
 
-      {/* Контейнер картины */}
-      <div className="relative group w-full flex justify-center">
+      {/* Контейнер картины в музейном паспарту #F8F4F5 с рамкой и без скруглений */}
+      <div className="relative group w-full bg-[#F8F4F5] p-4 md:p-8 border border-stone-300/40">
         <div className="relative w-full h-auto max-h-[70vh] flex justify-center">
           <Image 
             src={urlFor(artwork.images[index]).url()} 
             alt={artwork.title} 
             width={1200}
             height={800}
-            className="w-auto h-full max-h-[70vh] object-contain" 
+            className="w-auto h-full max-h-[70vh] object-contain rounded-none" 
             priority
           />
         </div>
         
         <button 
           onClick={prevSlide} 
-          className="absolute left-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
         >
           ❮
         </button>
         <button 
           onClick={nextSlide} 
-          className="absolute right-0 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
         >
           ❯
         </button>
@@ -56,9 +56,9 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
           <button 
             key={i} 
             onClick={() => setIndex(i)} 
-            className={`w-16 h-16 rounded overflow-hidden border ${index === i ? 'border-gray-900' : 'border-gray-200'}`}
+            className={`w-16 h-16 rounded-none overflow-hidden border ${index === i ? 'border-gray-900' : 'border-gray-300'}`}
           >
-            <Image src={urlFor(img).url()} alt="thumb" width={64} height={64} className="object-cover w-full h-full" />
+            <Image src={urlFor(img).url()} alt="thumb" width={64} height={64} className="object-cover w-full h-full rounded-none" />
           </button>
         ))}
       </div>
@@ -66,11 +66,11 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
       {/* Описание */}
       <div className="mt-12 text-center max-w-2xl mx-auto space-y-4">
         {artwork.series && <p className="text-sm uppercase tracking-widest text-gray-500">{artwork.series}</p>}
-        {artwork.description && <p className="text-gray-700 italic">{artwork.description}</p>}
+        {artwork.description && <p className="text-gray-700 italic font-light">{artwork.description}</p>}
       </div>
 
       {/* Блок характеристик и кнопки */}
-      <div className="mt-8 max-w-xl mx-auto border-t pt-8 space-y-6">
+      <div className="mt-8 max-w-xl mx-auto border-t border-stone-200 pt-8 space-y-6">
         
         {/* Статус For Sale / Sold */}
         <div className="flex items-center gap-2 text-xs uppercase tracking-widest font-medium text-gray-600">
@@ -103,14 +103,14 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
         </div>
 
         {/* Уникальность */}
-        <div className="pt-4 border-t text-xs uppercase tracking-widest text-gray-500 text-center">
+        <div className="pt-4 border-t border-stone-200 text-xs uppercase tracking-widest text-gray-500 text-center">
           ☆ One of a Kind · Only 1 Available
         </div>
 
         {/* Цена или статус и кнопка связи */}
-        <div className="pt-4 border-t flex flex-col items-center space-y-4">
+        <div className="pt-4 border-t border-stone-200 flex flex-col items-center space-y-4">
           {artwork.isSold ? (
-            <span className="inline-block px-4 py-1.5 bg-[#4a2e35] text-white text-xs tracking-widest uppercase font-medium rounded shadow-sm">
+            <span className="inline-block px-4 py-1.5 bg-[#4a2e35] text-white text-xs tracking-widest uppercase font-medium rounded-none shadow-sm">
               SOLD
             </span>
           ) : (
@@ -121,7 +121,7 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
               </div>
               <Link
                 href="/contact"
-                className="w-full max-w-md text-center py-3.5 px-6 border border-gray-800 text-gray-800 uppercase tracking-widest text-xs font-medium rounded-full hover:bg-gray-900 hover:text-white transition-all duration-200 shadow-sm"
+                className="w-full max-w-md text-center py-3.5 px-6 border border-gray-800 text-gray-800 uppercase tracking-widest text-xs font-medium rounded-none hover:bg-gray-900 hover:text-white transition-all duration-200 shadow-sm"
               >
                 Contact to Enquire
               </Link>
@@ -131,8 +131,8 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
 
       </div>
 
-      <div className="mt-16 text-center border-t pt-8">
-        <Link href="/gallery" className="text-gray-500 hover:text-black uppercase tracking-widest text-sm">
+      <div className="mt-16 text-center border-t border-stone-200 pt-8">
+        <Link href="/gallery" className="text-xs uppercase tracking-[0.2em] text-stone-500 hover:text-stone-900 transition-colors">
           ← Back to Gallery
         </Link>
       </div>
