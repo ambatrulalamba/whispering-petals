@@ -24,12 +24,10 @@ export const metadata: Metadata = {
 };
 
 export default async function GalleryPage() {
-  // Сортировка: сначала по году от новых к старым (2026 -> 2025 -> 2024), затем по дате создания
   const artworks = await client.fetch(`*[_type == "artwork"] | order(year desc, _createdAt desc)`);
 
   return (
     <main className="px-6 py-16 md:px-16 md:py-24 w-full bg-[#FAFAF8] min-h-screen">
-      {/* Заголовок галереи */}
       <div className="max-w-6xl mx-auto mb-20 text-center">
         <h1 className="text-3xl md:text-4xl font-serif font-light tracking-wider text-stone-900 mb-3">
           Botanical Portfolio
@@ -50,10 +48,8 @@ export default async function GalleryPage() {
               key={item._id} 
               className="group block"
             >
-              {/* Музейное паспарту без скруглений */}
-              <div className="relative bg-[#F4F1EB] p-4 md:p-6 rounded-none border border-stone-300/50 transition-all duration-500 group-hover:border-stone-400">
+              <div className="relative bg-[#F8F4F5] p-4 md:p-6 rounded-none border border-stone-300/40 transition-all duration-500 group-hover:border-stone-400">
                 
-                {/* Изображение без скруглений */}
                 <div className="relative aspect-[4/3] overflow-hidden rounded-none bg-stone-100">
                   {imageUrl && (
                     <Image 
@@ -65,7 +61,6 @@ export default async function GalleryPage() {
                   )}
                 </div>
 
-                {/* Подпись под картиной */}
                 <div className="mt-6 px-1 flex items-baseline justify-between">
                   <h2 className="text-xl font-serif font-normal text-stone-800 tracking-wide group-hover:text-stone-600 transition-colors">
                     {item.title}
