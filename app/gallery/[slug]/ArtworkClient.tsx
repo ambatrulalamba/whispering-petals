@@ -23,8 +23,21 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
         {artwork.title}
       </h1>
 
-      {/* Контейнер картины в музейном паспарту #F8F4F5 с рамкой и без скруглений */}
-      <div className="relative group w-full bg-[#F8F4F5] p-4 md:p-8 border border-stone-300/40">
+      {/* Музейное паспарту #F8F4F5 с рамкой, без скруглений и со стрелками по краям */}
+      <div className="relative group w-full bg-[#F8F4F5] p-6 md:p-12 border border-stone-300/40 flex justify-center items-center">
+        
+        {/* Кнопка «Назад» на паспарту */}
+        {artwork.images && artwork.images.length > 1 && (
+          <button 
+            onClick={prevSlide} 
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-3 text-stone-600 hover:text-stone-900 transition-colors text-xl md:text-2xl z-10"
+            aria-label="Previous image"
+          >
+            ❮
+          </button>
+        )}
+
+        {/* Контейнер изображения */}
         <div className="relative w-full h-auto max-h-[70vh] flex justify-center">
           <Image 
             src={urlFor(artwork.images[index]).url()} 
@@ -35,19 +48,17 @@ export default function ArtworkClient({ artwork }: { artwork: any }) {
             priority
           />
         </div>
-        
-        <button 
-          onClick={prevSlide} 
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
-        >
-          ❮
-        </button>
-        <button 
-          onClick={nextSlide} 
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-4 text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity text-2xl hover:scale-110"
-        >
-          ❯
-        </button>
+
+        {/* Кнопка «Вперед» на паспарту */}
+        {artwork.images && artwork.images.length > 1 && (
+          <button 
+            onClick={nextSlide} 
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-3 text-stone-600 hover:text-stone-900 transition-colors text-xl md:text-2xl z-10"
+            aria-label="Next image"
+          >
+            ❯
+          </button>
+        )}
       </div>
 
       {/* Превью */}
