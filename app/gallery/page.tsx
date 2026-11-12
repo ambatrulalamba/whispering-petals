@@ -27,14 +27,18 @@ export default async function GalleryPage() {
   const artworks = await client.fetch(`*[_type == "artwork"] | order(_createdAt desc)`);
 
   return (
-    <main className="p-8 md:p-20 w-full bg-[#FAFAF9] min-h-screen">
-      {/* Заголовок галереи в стиле высокой моды / арт-бутика */}
-      <div className="max-w-7xl mx-auto mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-serif tracking-wide text-gray-900 mb-4">Botanical Portfolio</h1>
-        <p className="text-gray-500 font-sans tracking-widest text-sm uppercase">Original Watercolors by Olena</p>
+    <main className="px-6 py-16 md:px-16 md:py-24 w-full bg-[#FCFCFB] min-h-screen">
+      {/* Заголовок галереи: строго, утонченно, без лишнего шума */}
+      <div className="max-w-6xl mx-auto mb-20 text-center">
+        <h1 className="text-3xl md:text-4xl font-serif font-light tracking-wider text-stone-900 mb-3">
+          Botanical Portfolio
+        </h1>
+        <p className="text-stone-400 font-sans tracking-[0.2em] text-xs uppercase">
+          Original Watercolors by Olena
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 max-w-6xl mx-auto">
         {artworks.map((item: any) => {
           const hasValidImage = item.images && item.images[0] && (item.images[0].asset || item.images[0]._ref);
           const imageUrl = hasValidImage ? urlFor(item.images[0]).url() : null;
@@ -45,33 +49,27 @@ export default async function GalleryPage() {
               key={item._id} 
               className="group block"
             >
-              {/* «Рама» / Контейнер карточки с эффектом паспарту */}
-              <div className="relative bg-white p-4 md:p-6 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.05)] transition-all duration-500 group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.12)] group-hover:-translate-y-1">
+              {/* Контейнер без навязчивых теней: чистый плоский дизайн с единым радиусом */}
+              <div className="relative bg-white p-3 md:p-4 rounded-md border border-stone-200/60 transition-all duration-500 group-hover:border-stone-400">
                 
-                {/* Окно изображения с пропорциями */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-50">
+                <div className="relative aspect-[4/3] overflow-hidden rounded bg-stone-50">
                   {imageUrl && (
                     <Image 
                       src={imageUrl} 
                       alt={item.title || 'Artwork'} 
                       fill 
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" 
                     />
                   )}
-                  
-                  {/* Деликатный оверлей при наведении для дорогого эффекта */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
-                {/* Текстовый блок под картиной в изысканном стиле */}
-                <div className="mt-6 flex items-baseline justify-between px-2">
-                  <h2 className="text-2xl font-serif font-medium text-gray-900 group-hover:text-stone-700 transition-colors">
+                {/* Подпись под картиной */}
+                <div className="mt-5 px-1 flex items-baseline justify-between">
+                  <h2 className="text-xl font-serif font-normal text-stone-800 tracking-wide group-hover:text-stone-600 transition-colors">
                     {item.title}
                   </h2>
-                  
-                  {/* Мелкие технические детали (год или статус), если есть */}
                   {item.year && (
-                    <span className="text-xs tracking-widest text-gray-400 uppercase font-sans">
+                    <span className="text-[11px] tracking-widest text-stone-400 font-sans uppercase">
                       {item.year}
                     </span>
                   )}
