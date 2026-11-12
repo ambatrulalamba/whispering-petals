@@ -1,13 +1,36 @@
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+import { Metadata } from 'next';
 import { client } from '@/lib/sanity';
 import { urlFor } from '@/lib/image';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// SEO-метатеги для страницы галереи (работают в связке с force-dynamic)
+export const metadata: Metadata = {
+  title: 'Gallery — Botanical Watercolor Art | Whispering Petals',
+  description: 'Explore original botanical watercolor artworks, hand-painted floral studies of roses, peonies, and more by Olena.',
+  alternates: {
+    canonical: 'https://whisperingpetals.net/gallery',
+  },
+  openGraph: {
+    title: 'Gallery — Whispering Petals',
+    description: 'Explore original botanical watercolor artworks by Olena.',
+    url: 'https://whisperingpetals.net/gallery',
+    siteName: 'Whispering Petals',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gallery — Whispering Petals',
+    description: 'Explore original botanical watercolor artworks by Olena.',
+  },
+};
+
 export default async function GalleryPage() {
-  const artworks = await client.fetch(`*[_type == "artwork"]`);
+  const artworks = await client.fetch(`*[_type == "artwork"] | order(_createdAt desc)`);
 
   return (
     <main className="p-8 md:p-16 w-full">
